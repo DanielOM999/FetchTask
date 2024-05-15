@@ -13,23 +13,24 @@ function openmenu() {
 // map settings
 const attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 
-var map = L.map('map1').setView([59.745164250056135, 10.164131070531106], 15);
+var map = L.map('map1').setView([0, 0], 2);
 let marker = L.marker([59.745164250056135,10.164131070531106 ]).addTo(map)
-let tileURL =   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { }).addTo(map);
-const tiles =L.tileLayer(tileURL,{attribution})
+let tileURL = 'https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=jrWXhyKc3SrZIgzh4DCp';
+const tiles = L.tileLayer(tileURL, {attribution}).addTo(map)
 let place = document.getElementById("searchbar").value;
-const api_url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + place; 
+const api_url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + place;; 
 console.log(place);
 
+show_me()
 
 async function show_me(){
-
-    let response = await fetch(api_url);
-    //let response = await fetch('https://api.openbrewerydb.org/breweries');
+    let response = await fetch("https://api.openbrewerydb.org/v1/breweries/");
     let data = await response.json();
-    console.log(data);
     data.forEach(element => {
-        let marker = L.marker([element.lat, element.lon]).addTo(map);
-        marker.bindPopup(`<b>${element.name}</b><br>${element.lat}  ${element.lon}`).openPopup();
+        console.log("Latitude:", element.latitude, "Longitude:", element.longitude);
+        if (element.latitude && element.longitude) {
+            let marker = L.marker([element.latitude, element.longitude]).addTo(map);
+            marker.bindPopup(`<b>${element.name}</b><br>${element.latitude}  ${element.longitude}`).openPopup();
+        }
     });
 }
