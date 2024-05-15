@@ -1,4 +1,3 @@
-
 const mybtn = document.getElementById('myList');
 const tre = document.getElementById('btn');
 tre.addEventListener("click", openmenu );
