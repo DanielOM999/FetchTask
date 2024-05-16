@@ -14,23 +14,52 @@ function openmenu() {
 const attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 
 var map = L.map('map1').setView([0, 0], 2);
-let marker = L.marker([59.745164250056135,10.164131070531106 ]).addTo(map)
 let tileURL = 'https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=jrWXhyKc3SrZIgzh4DCp';
 const tiles = L.tileLayer(tileURL, {attribution}).addTo(map)
-let place = document.getElementById("searchbar").value;
-const api_url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + place;; 
-console.log(place);
-
+var customIcon = L.icon({
+    iconUrl: '../public/beer.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
 show_me()
+
+async function search () {
+    let place = document.getElementById("searchbar").value;
+    console.log(place);
+    let response = await fetch('https://api.openbrewerydb.org/v1/breweries/search?query=' + place);
+    let data = await response.json();
+
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    data.forEach(element => {
+        console.log("Latitude:", element.latitude, "Longitude:", element.longitude);
+        if (element.latitude && element.longitude) {
+            let marker = L.marker([element.latitude, element.longitude], {icon: customIcon}).addTo(map);
+            marker.bindPopup(`<b>${element.name}</b><br>${element.latitude}  ${element.longitude}`).openPopup();
+        }
+    });
+}
 
 async function show_me(){
     let response = await fetch("https://api.openbrewerydb.org/v1/breweries/");
     let data = await response.json();
+
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
     data.forEach(element => {
         console.log("Latitude:", element.latitude, "Longitude:", element.longitude);
         if (element.latitude && element.longitude) {
-            let marker = L.marker([element.latitude, element.longitude]).addTo(map);
-            marker.bindPopup(`<b>${element.name}</b><br>${element.latitude}  ${element.longitude}`).openPopup();
+            let marker = L.marker([element.latitude, element.longitude], {icon: customIcon}).addTo(map);
+            marker.bindPopup(`<b>${element.name}</b><br>${element.latitude}  ${element.longitude}`);
         }
     });
 }
