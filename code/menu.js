@@ -11,18 +11,7 @@ function openmenu() {
 }
 
 // map settings
-const attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-
-var map = L.map('map1').setView([0, 0], 2);
-let tileURL = 'https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=jrWXhyKc3SrZIgzh4DCp';
-const tiles = L.tileLayer(tileURL, {attribution}).addTo(map)
-var customIcon = L.icon({
-    iconUrl: '../public/beer.png',
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-});
-show_me()
+// show_me()
 
 async function search () {
     let place = document.getElementById("searchbar").value;
@@ -46,6 +35,18 @@ async function search () {
 }
 
 async function show_me(){
+    const attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+
+    var map = L.map('map1').setView([39.8333, -98.5855], 3);
+    let tileURL = 'https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=jrWXhyKc3SrZIgzh4DCp';
+    const tiles = L.tileLayer(tileURL, {attribution}).addTo(map)
+    var customIcon = L.icon({
+        iconUrl: '../public/beer.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+    });
+
     let response = await fetch("https://api.openbrewerydb.org/v1/breweries/");
     let data = await response.json();
 

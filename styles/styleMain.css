@@ -5,7 +5,9 @@
 body{
     padding: .5rem;
     font-family: 'Roboto', sans-serif;
-    background-color: #ffff;
+    background-image: url('../public/beer-253791_1920.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -46,13 +48,18 @@ body{
 .header_main #menu_bar input{
 
     width:20rem;
-    height: auto;    
-    border: 1px solid #000;
+    height: 3rem;
+    font-size: 1rem;    
+    border: 1px solid #fff;
     border-radius: 5px;
 }
 .header_main #menu_bar p{
-
     font-size: 1.5rem;
+}
+.header_main #menu_bar button {
+    background: transparent;
+    border: none;
+    margin-left: 0.5rem;
 }
 .header_main #logo_main{
     grid-column: 3;
@@ -67,7 +74,7 @@ body{
 
 .sidebar{
     grid-area: sidebar;
-    background-color:#c1c0be;
+    background-image:linear-gradient(120deg, #8a7202, #d3ad01, #d3ad01);
     padding: 5rem 7rem;
     align-items: center;
 }
@@ -91,20 +98,17 @@ body{
     padding: 10%;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #000;
+    color: #fff;
 
 }
 .main_main #map1{
-   
-
+    border: solid 5px #fff;
     height: 40%;
     width: auto;
     margin-left: 10%;
     aspect-ratio: 1/1;
-
-    
-
 }
+
 .main_main #map iframe{
     width: 50%;
     height: auto;
@@ -126,8 +130,7 @@ body{
 #sidebar_options #myList{
     display: none;
     padding: 1rem;
-    background-color: #99c9e9;
-    
+    background-color: #d8d8d8;
     border-radius: 5px;
     position: absolute;
     z-index: 1;
@@ -135,7 +138,7 @@ body{
 #sidebar_options #myList li{
     font-size: 1.5rem;
     font-weight: 600;
-    color: #ffff;
+    color: #444;
 }
 .images_main{
     grid-column-start: 3;
