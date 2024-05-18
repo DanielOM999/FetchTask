@@ -103,10 +103,24 @@ body{
 }
 .main_main #map1{
     border: solid 5px #fff;
+    background-image: url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWRvZHN0YXZnajhjcTZhajV1eGJkd3Zia2tkZTF4cDg2dGJzdmxwZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z9dh5MpO0CnbG/giphy.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
     height: 40%;
     width: auto;
     margin-left: 10%;
     aspect-ratio: 1/1;
+    cursor: pointer;
+}
+
+.main_main #mapH {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 30rem;
+    font-size: 2rem;
 }
 
 .main_main #map iframe{
@@ -149,18 +163,20 @@ body{
     padding: 5rem;
 
 }
+
 .images_main p{
     font-size: 10rem;
     padding: 1rem;
 }
+
 .images_main #card{
-    
     width:30rem;
     height:auto;
     max-width: 250px;
     padding:2rem 0 2rem 0;
-
+    color: #bbb;
 }
+
 footer{
     grid-area: footer;
     background-color:#d8d8d8;;
