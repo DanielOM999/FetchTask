@@ -103,14 +103,20 @@ body{
 }
 .main_main #map1{
     border: solid 5px #fff;
-    background-image: url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWRvZHN0YXZnajhjcTZhajV1eGJkd3Zia2tkZTF4cDg2dGJzdmxwZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z9dh5MpO0CnbG/giphy.gif");
-    background-size: cover;
+    /* background-image: url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWRvZHN0YXZnajhjcTZhajV1eGJkd3Zia2tkZTF4cDg2dGJzdmxwZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/z9dh5MpO0CnbG/giphy.gif"); */
+    background-image: url(../public/beer-5377737_1280-removebg-preview.png);
+    background-size: 100%;
     background-repeat: no-repeat;
     height: 40%;
     width: auto;
     margin-left: 10%;
     aspect-ratio: 1/1;
     cursor: pointer;
+    transition: 1s;
+}
+
+.main_main #map1:hover {
+    background-size: 103%;
 }
 
 .main_main #mapH {
@@ -121,6 +127,8 @@ body{
     text-align: center;
     margin-top: 30rem;
     font-size: 2rem;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000;
 }
 
 .main_main #map iframe{

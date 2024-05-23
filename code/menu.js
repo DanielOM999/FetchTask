@@ -55,6 +55,20 @@ async function search () {
     });
 }
 
+async function onClick(e) {
+    let stringF = "";
+    var customData = this.options.customData
+    console.log(customData.id)
+    let response = await fetch("https://api.openbrewerydb.org/v1/breweries/" + customData.id);
+    let data = await response.json();
+    for (const key in data) {
+        if (data.hasOwnProperty(key) && data[key] !== null && data[key] != data.id) {
+            stringF += `${key}: ${data[key]}\n`;
+        }
+    }
+    alert(stringF)
+}
+
 // Function to display all breweries on first page and only 51 on the map
 async function show_me(){
     if (!mapIn) {
@@ -78,8 +92,10 @@ async function show_me(){
         data.forEach(element => {
             console.log("Latitude:", element.latitude, "Longitude:", element.longitude);
             if (element.latitude && element.longitude) {
-                let marker = L.marker([element.latitude, element.longitude], {icon: customIcon}).addTo(map);
-                marker.bindPopup(`<b>${element.name}</b><br>${element.latitude}  ${element.longitude}`);
+                let customData = {
+                    id: element.id
+                };
+                let marker = L.marker([element.latitude, element.longitude], {icon: customIcon, customData: customData}).addTo(map).on('click', onClick);
             }
         });
         mapIn = true
