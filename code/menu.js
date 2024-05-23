@@ -66,7 +66,8 @@ async function onClick(e) {
             stringF += `${key}: ${data[key]}\n`;
         }
     }
-    alert(stringF)
+    // alert(stringF)
+    showPopup()
 }
 
 // Function to display all breweries on first page and only 51 on the map
@@ -101,3 +102,24 @@ async function show_me(){
         mapIn = true
     }
 }
+
+function showPopup() {
+    $('#popup-overlay').css({
+        opacity: 0,
+        transform: 'scale(1)'
+    }).show().animate({
+        opacity: 1,
+        scale: 1
+    }, 500);
+}
+
+$(document).ready(function() {
+    $('#popup-overlay').hide();
+
+    $('#close-btn').click(function() {
+        $('#popup-overlay').fadeOut().animate({
+            opacity: 0,
+            scale: 0
+        }, 500);;
+    });
+});
