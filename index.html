@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/public/beer-5377737_1280-removebg-preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styleMain.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"  />
@@ -11,10 +12,22 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.11.1/libphonenumber-js.min.js" integrity="sha512-yS0AHkSS09VCH2wqNLDv7qZ7RaQQhL2OfCbeTgTs2PSrSPhXKm7Qvwe3I1h/cCQtg0ElsiHI2ysYvNJXfgSHqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <title>My API - main</title>
 </head>
 <body>
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup">
+            <img src="/public/beer-5377737_1280-removebg-preview.png" alt="Popup Image">
+            <div class="content">
+                <h2 id="name">Error</h2>
+                <p id="text">Somthing went wrong</p>
+            </div>
+            <button class="close-btn" id="close-btn">Close</button>
+        </div>
+    </div>
     <header class="header_main">
         <div id="menu_header">
             <ul>
