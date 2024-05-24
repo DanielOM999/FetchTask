@@ -214,7 +214,23 @@ footer #info1 ul, #info2 ul{
     justify-content: center;
     visibility: visible;
     z-index: 2;
+    overflow-y: auto;
 }
+
+.popup-overlay::-webkit-scrollbar {
+    width: 12px;
+}
+
+.popup-overlay::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.popup-overlay::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: transparent;
+}
+
 .popup {
     background: #fff;
     padding: 20px;
@@ -223,10 +239,12 @@ footer #info1 ul, #info2 ul{
     text-align: center;
     max-width: 400px;
     width: 90%;
+    overflow: hidden;
 }
 .popup img {
     max-width: 100%;
     border-radius: 8px 8px 0 0;
+    padding-top: 28rem;
 }
 .popup .content {
     padding: 20px 0;
@@ -239,6 +257,10 @@ footer #info1 ul, #info2 ul{
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+}
+
+#text {
+    padding-top: 5px;
 }
 
 

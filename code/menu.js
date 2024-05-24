@@ -9,7 +9,7 @@ var customIcon = L.icon({
     iconUrl: '../public/beer.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
+    popupAnchor: [0, -32] 
 });
 var mapIn = false;
 
@@ -37,7 +37,7 @@ async function search () {
     }
     let place = document.getElementById("searchbar").value;
     console.log(place);
-    let response = await fetch('https://api.openbrewerydb.org/v1/breweries/search?query=' + place);
+    let response = await fetch('https://api.openbrewerydb.org/v1/breweries/search?query=' + place + "&per_page=51");
     let data = await response.json();
 
     map.eachLayer(function(layer) {
@@ -49,25 +49,21 @@ async function search () {
     data.forEach(element => {
         console.log("Latitude:", element.latitude, "Longitude:", element.longitude);
         if (element.latitude && element.longitude) {
-            let marker = L.marker([element.latitude, element.longitude], {icon: customIcon}).addTo(map);
-            marker.bindPopup(`<b>${element.name}</b><br>${element.latitude}  ${element.longitude}`).openPopup();
+            let customData = {
+                id: element.id
+            };
+            let marker = L.marker([element.latitude, element.longitude], {icon: customIcon, customData: customData}).addTo(map).on('click', onClick);
         }
     });
 }
 
+// Async fetches and sends and runs showpopup function
 async function onClick(e) {
-    let stringF = "";
     var customData = this.options.customData
     console.log(customData.id)
     let response = await fetch("https://api.openbrewerydb.org/v1/breweries/" + customData.id);
     let data = await response.json();
-    for (const key in data) {
-        if (data.hasOwnProperty(key) && data[key] !== null && data[key] != data.id) {
-            stringF += `${key}: ${data[key]}\n`;
-        }
-    }
-    // alert(stringF)
-    showPopup()
+    showPopup(data)
 }
 
 // Function to display all breweries on first page and only 51 on the map
@@ -103,7 +99,8 @@ async function show_me(){
     }
 }
 
-function showPopup() {
+// Function to display detailed brewery information in a popup
+function showPopup(data) {
     $('#popup-overlay').css({
         opacity: 0,
         transform: 'scale(1)'
@@ -111,8 +108,28 @@ function showPopup() {
         opacity: 1,
         scale: 1
     }, 500);
+    let stringF = "</br>";
+    document.getElementById("name").innerText = data.name;
+    
+    for (const key in data) {
+        if (data.hasOwnProperty(key) && data[key] !== null && data[key] != data.id && data[key] != data.name) {
+            if (data[key] == data.website_url || data[key] == data.phone) {
+                if (data[key] == data.phone) {
+                    const formattedNumber = formatPhoneNumber(data[key]);
+                    stringF += `<p><strong>${key}</strong>:</p> <p>${formattedNumber}</p></br>`;
+                } else {
+                    stringF += `<p><strong>${key}</strong>:</p> <a href="${data[key]}">${data[key]}</a></br>`;
+                }
+            } else {
+                stringF += `<p><strong>${key}</strong>:</p> <p>${data[key]}</p></br>`;
+            }
+        }
+    }
+
+    document.getElementById("text").innerHTML = stringF;
 }
 
+// jQuery to handle popup overlay visibility mainly hiding
 $(document).ready(function() {
     $('#popup-overlay').hide();
 
@@ -123,3 +140,15 @@ $(document).ready(function() {
         }, 500);;
     });
 });
+
+// Function to format phone numbers to USA standars
+function formatPhoneNumber(number) {
+    if(!number) return number;
+    const phoneNumber = number.replace(/[^\d]/g, "");
+    const phoneNumberLength = phoneNumber.length;
+    if (phoneNumberLength < 4) return phoneNumber;
+    if (phoneNumber < 7) {
+        return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+    }
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6, )}-${phoneNumber.slice(6, 9)}`;
+}
